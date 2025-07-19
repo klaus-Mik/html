@@ -1,0 +1,121 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* Ensures body takes full viewport height */
+  font-family: Arial, sans-serif;
+  
+  /* Center the dock at the bottom of the page */
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: flex-end;   /* Aligns to the bottom */
+
+  /* Your full-page background image styling */
+  background-image: url("pexels-christian-heitz-285904-842711.jpg");
+  background-size: cover;       /* Ensures image covers the entire area */
+  background-repeat: no-repeat; /* Prevents tiling */
+  background-position: center center; /* Centers the image */
+  background-attachment: fixed; /* Keeps background fixed during scroll */
+  overflow: hidden; /* Prevent body scrollbars if content is outside viewport */
+}
+
+/* --- Main Dock Container Styling --- */
+#menubar {
+  position: fixed; /* Sticks the dock to the bottom of the viewport */
+  bottom: 20px;    /* Distance from the bottom of the screen */
+  z-index: 1000;   /* Ensures the dock appears above other content */
+
+  background-color: rgba(50, 50, 50, 0.8); /* Semi-transparent dark background */
+  border-radius: 15px; /* Rounded corners for the dock itself */
+  padding: 10px 15px;  /* Padding inside the dock */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+
+  /* Allow the width to be determined by its content */
+  width: fit-content; /* Makes the container as wide as its content needs */
+  max-width: 90vw;    /* Prevents the dock from becoming excessively wide on large screens */
+  box-sizing: border-box; /* Ensures padding is included in the element's total width */
+}
+
+/* --- Unordered List (the direct container for your dock items) --- */
+#menubar ul {
+  list-style: none; /* Removes default bullet points from the list */
+  margin: 0;      /* Removes default margin from the list */
+  padding: 0;     /* Removes default padding from the list */
+  
+  display: flex; /* Makes the list items (your <a> tags) arrange horizontally */
+  align-items: flex-end; /* Aligns items to the bottom within the dock (useful for magnification) */
+  
+  /* Space between dock items */
+  /* If items are still going off-screen, try reducing this 'gap' value or setting it to 0 */
+  gap: 15px; 
+  
+  /* Ensure items don't wrap to the next line */
+  flex-wrap: nowrap; 
+}
+
+/* --- Individual Dock Item Styling (the <a> tags) --- */
+.dock-item {
+  display: flex;         /* Enables flexbox for content within the item */
+  flex-direction: column; /* Stacks the image and app name vertically */
+  align-items: center;   /* Centers the image and app name horizontally within the item */
+  
+  text-decoration: none; /* Removes underline from links */
+  color: white;          /* Sets text color for the app name */
+  
+  position: relative;    /* CRUCIAL: Makes absolute positioning of .app-name work correctly */
+  
+  /* Smooth transition for the hover (magnification) effect */
+  transition: transform 0.2s ease-in-out; 
+
+  flex-shrink: 0; /* Prevents dock items from shrinking if the container is small */
+}
+
+/* --- Image Styling within Dock Items --- */
+.dock-item img {
+  width: 60px;   /* Explicitly sets icon width */
+  height: 60px;  /* Explicitly sets icon height */
+  
+  border-radius: 12px; /* Slightly rounded corners for the icons */
+  object-fit: contain; /* Ensures the image fits within its bounds without cropping */
+  display: block;      /* Removes any extra space below the image */
+  
+  /* Smooth transition for the image's own scaling on hover */
+  transition: transform 0.2s ease-in-out; 
+}
+
+/* --- Hover Effect for Dock Items (Magnification) --- */
+.dock-item:hover {
+  transform: translateY(-10px); /* Lifts the entire dock item slightly upwards */
+}
+
+.dock-item:hover img {
+  transform: scale(1.2); /* Magnifies the icon */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Adds a subtle glow */
+}
+
+/* --- App Name (Tooltip-like behavior on hover) --- */
+.app-name {
+  position: absolute; /* Positions the app name relative to its .dock-item parent */
+  bottom: -30px;      /* Initial position below the icon */
+  
+  background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent dark background */
+  color: white;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 0.8em;
+  
+  opacity: 0;          /* Hidden by default */
+  pointer-events: none; /* Allows clicks to pass through this hidden element */
+  
+  /* Smooth transition for fading in/out and moving */
+  transition: opacity 0.2s ease-in-out, bottom 0.2s ease-in-out;
+  
+  white-space: nowrap; /* Prevents the text from wrapping */
+  text-align: center;  /* Centers the text if it's longer */
+  z-index: 10;         /* Ensures the name appears above other elements */
+}
+
+.dock-item:hover .app-name {
+  opacity: 1;    /* Makes the app name visible on hover */
+  bottom: -45px; /* Moves the app name up slightly when visible */
+}
