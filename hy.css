@@ -72,8 +72,8 @@ html, body {
 
 /* --- Image Styling within Dock Items --- */
 .dock-item img {
-  width: 60px;   /* Explicitly sets icon width */
-  height: 60px;  /* Explicitly sets icon height */
+  width: 28px;   /* Explicitly sets icon width */
+  height: 28px;  /* Explicitly sets icon height */
   
   border-radius: 12px; /* Slightly rounded corners for the icons */
   object-fit: contain; /* Ensures the image fits within its bounds without cropping */
@@ -90,7 +90,7 @@ html, body {
 
 .dock-item:hover img {
   transform: scale(1.2); /* Magnifies the icon */
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Adds a subtle glow */
+   /* Adds a subtle glow */
 }
 
 /* --- App Name (Tooltip-like behavior on hover) --- */
